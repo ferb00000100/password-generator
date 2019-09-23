@@ -1,0 +1,23 @@
+.background-image {
+    background: url("../images/pwd-bckground.png");
+    opacity: 1.0;
+}
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
+.container-format {
+    margin: auto;
+    height: 80%;
+    width: 80%;
+
+}
+
+.button {
+    margin: auto;
+    width: 50%;
+}
