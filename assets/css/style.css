@@ -1,7 +1,4 @@
-.background-image {
-    background: url("../images/pwd-bckground.png");
-    opacity: 1.0;
-}
+
 html {
     height: 100%;
 }
@@ -10,14 +7,42 @@ body {
     height: 100%;
 }
 
-.container-format {
-    margin: auto;
-    height: 80%;
-    width: 80%;
-
+.background-image {
+    height: 60%;
+    width: 1199px;
+    background: url("../images/pwd-bckground.png");
+    opacity: 1.0;
 }
 
-.button {
+.container-format {
     margin: auto;
+    height: 65%;
     width: 50%;
+}
+
+
+.btn {
+    width: 250px;
+}
+
+.btnSmall {
+    width: 200px;
+}
+
+
+@media screen and (max-width: 1000px) {
+
+    .btn {
+        width: 150px;
+    }
+
+    .btnSmall {
+        width: 100px;
+    }
+
+    .container-format {
+        margin: auto;
+        height: 75%;
+        width: 50%;
+    }
 }

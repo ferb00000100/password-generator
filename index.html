@@ -13,80 +13,96 @@
 </head>
 
 <body>
-<div class="container container-format">
-	<div class="background-image container-format">
-<!--	<div class="jumbotron bg-transparent">-->
-<div>
-		<h1 class="display-4 text-light text-center">Password Generator</h1>
-		<p class="lead text-light text-center">Protect yourself with complex randomly generated passwords.</p>
-		<hr class="my-4 bg-light">
-		<p id="pwd"></p>
-		<div class="col bg-dark text-center button">
-				<button onclick="alert(gatherInfo())" type="text" id="input" class="btn btn-dark">Generate Password</button>
+
+<div class="container container-format text-light mt-3 background-image">
+	<div class="row">
+		<div class="col-12 text-center">
+			<h1>Password Generator</h1>
+			<p class="lead">Protect yourself with complex randomly generated passwords</p>
+			<hr class="my-4 bg-light">
 		</div>
-		<div class="col bg-dark mt-3 text-center button">
-			<button id="copy" class="btn btn-dark">Copy Password</button>
-<!--		<div class="col-sm-4">-->
-<!--			<button onclick="(copy())" type="text" id="result" class="btn btn-dark">Copy Password</button>-->
-<!--		</div>-->
+	</div>
+	<div class="row">
+		<div class="col-12 justify-align-center text-center">
+			<div class="form-group col text-center">
+				<textarea placeholder="Your Secure Password" class="form-control text-center" id="pwd" rows="2"></textarea>
+			</div>
 		</div>
-<!--</div>-->
+	</div>
+	<div class="row">
+		<div class="col-lg-6 col-md-3 col-xs-12 text-center mt-sm-3">
+				<button onclick="alert(gatherInfo())" class="btn btn-dark">Generate Password</button>
+		</div>
+		<div class="col-lg-6 col-md-3 col-xs-12 text-center mt-sm-3">
+			<button id="btnCopy" class="btn btn-dark">Copy Password</button>
+		</div>
+	</div>
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-xs-12 text-center mt-3">
+			<button onclick="clearPassword();" id="btnClear" class="btn btn-dark" style="width: 150px">Clear</button>
+		</div>
 </div>
-		<script>
-			function copy() {
-				var copyText = document.querySelector("#pwd");
-				alert(copyText);
-				copyText.select();
-				document.execCommand("copy");
+
+<script type="text/javascript">
+
+	function clearPassword() {
+		document.getElementById("pwd").value = "";
+	}
+
+	function passwordGenerator(passwordLength, characters) {
+		var result ='';
+		var pwd = document.getElementById('pwd');
+		const btnCopy = document.getElementById("btnCopy");
+
+
+		for (var i = 0; i < passwordLength; i++){
+			result += characters[Math.floor(Math.random() * characters.length)];
+		}
+
+		if ((result.includes('%')) || (result.includes('#')) || (result.includes('&')) || (result.includes('*')) || (result.includes('{')) || (result.includes('}')) || (result.includes('[')) || (result.includes(']'))
+			|| (result.includes('0')) || (result.includes('1')) || (result.includes('2')) || (result.includes('3')) || (result.includes('4')) || (result.includes('5')) || (result.includes('6')) || (result.includes('7'))
+			|| (result.includes('8')) || (result.includes('9'))){
+
+			pwd.textContent = result;
+
+			btnCopy.onclick = function () {
+				pwd.textContent = result;
+				pwd.select();
+				document.execCommand("Copy");
 			}
+		}
+		else {
+			passwordGenerator(passwordLength,characters);
+		}
+	}
 
-            function passwordGenerator(passwordLength, characters) {
-                var result ='';
-				var pwd = document.getElementById('pwd');
+	function gatherInfo(){
 
-                for (var i = 0; i < passwordLength; i++){
-                    result += characters[Math.floor(Math.random() * characters.length)];
-                }
+		var Characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789%#-*&!{}[]?';
+		var passwordLength = prompt('Enter Password Length');
 
-                if ((result.includes('%')) || (result.includes('#')) || (result.includes('&')) || (result.includes('*')) || (result.includes('{')) || (result.includes('}')) || (result.includes('[')) || (result.includes(']'))
-	                || (result.includes('0')) || (result.includes('1')) || (result.includes('2')) || (result.includes('3')) || (result.includes('4')) || (result.includes('5')) || (result.includes('6')) || (result.includes('7'))
-	                || (result.includes('8')) || (result.includes('9'))){
-                    pwd.textContent = result;
-	                document.querySelector("#copy").addEventListener("click", copy);
-	                // console.log(result);
-                }
-                else {
-                    passwordGenerator(passwordLength,characters);
-                }
+		if (passwordLength === null) {
+			return;
+		}
+		if (passwordLength >= 8) {// console.log('password length meets criteria. Length is ' + passwordLength + ' characters.');
+			passwordGenerator(passwordLength, Characters);
 
-            }
+		}
+		else {
+			alert('Your Password must be at least 8 characters long!')
+			gatherInfo();
+		}
+	}
 
+</script>
 
 
 
-			function gatherInfo(){
-                var Characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789%#-*&!{}[]?';
 
-				var passwordLength = prompt('Enter Password Length');
 
-				if (passwordLength === null) {
-					return;
-				}
 
-				if (passwordLength >= 8) {
-				    // console.log('password length meets criteria. Length is ' + passwordLength + ' characters.');
-					passwordGenerator(passwordLength, Characters);
 
-				}
-				else {
-				    alert('Your Password must be at least 8 characters long!')
-					gatherInfo();
-				}
 
-            }
 
-		</script>
-
-</div>
 </body>
 </html>
