@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Password Generator</title>
+	<link rel="stylesheet" href="assets/css/cssreset.css" type="text/css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="assets/css/style.css" type="text/css">
+</head>
+
+<body>
+
+<div class="container container-format text-light mt-3 background-image">
+	<div class="row">
+		<div class="col-12 text-center">
+			<h1>Password Generator</h1>
+			<p class="lead">Protect yourself with complex randomly generated passwords</p>
+			<hr class="my-4 bg-light">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12 justify-align-center text-center">
+			<div class="form-group col text-center">
+				<input type="text" id="pwd" >
+<!--				<textarea placeholder="Your Secure Password" class="form-control text-center" id="pwd" rows="2"></textarea>-->
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-6 col-md-3 col-xs-12 text-center mt-sm-3">
+			<button onclick="alert(gatherInfo())" class="btn btn-dark">Generate Password</button>
+		</div>
+		<div class="col-lg-6 col-md-3 col-xs-12 text-center mt-sm-3">
+			<button id="btnCopy" class="btn btn-dark">Copy Password</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-xs-12 text-center mt-3">
+			<button onclick="clearPassword();" id="btnClear" class="btn btn-dark" style="width: 150px">Clear</button>
+		</div>
+	</div>
+</div>
+
+
+	<script type="text/javascript">
+
+		function clearPassword() {
+			document.getElementById("pwd").value = "";
+		}
+
+		function passwordGenerator(passwordLength, characters) {
+			var result ='';
+			var pwd = document.getElementById('pwd');
+			const btnCopy = document.getElementById("btnCopy");
+
+
+			for (var i = 0; i < passwordLength; i++){
+				result += characters[Math.floor(Math.random() * characters.length)];
+			}
+
+			if ((result.includes('%')) || (result.includes('#')) || (result.includes('&')) || (result.includes('*')) || (result.includes('{')) || (result.includes('}')) || (result.includes('[')) || (result.includes(']'))
+				|| (result.includes('0')) || (result.includes('1')) || (result.includes('2')) || (result.includes('3')) || (result.includes('4')) || (result.includes('5')) || (result.includes('6')) || (result.includes('7'))
+				|| (result.includes('8')) || (result.includes('9'))){
+
+				pwd.textContent = result;
+				console.log(pwd);
+				btnCopy.onclick = function () {
+					pwd.textContent = result;
+					pwd.select();
+					document.execCommand("Copy");
+				}
+			}
+			else {
+				passwordGenerator(passwordLength,characters);
+			}
+		}
+
+
+		function gatherInfo(){
+
+			var Characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789%#-*&!{}[]?';
+			var passwordLength = prompt('Enter Password Length');
+			// return prompt(passwordLength);
+
+			if (passwordLength === null) {
+				return;
+			}
+			if (passwordLength >= 8) {// console.log('password length meets criteria. Length is ' + passwordLength + ' characters.');
+				passwordGenerator(passwordLength, Characters);
+
+			}
+			else {
+				alert('Your Password must be at least 8 characters long!')
+				gatherInfo();
+			}
+		}
+
+
+	</script>
+
+
+</body>
+</html>
