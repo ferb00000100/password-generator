@@ -24,6 +24,36 @@
 		</div>
 	</div>
 	<div class="row">
+		<div class="form-check">
+			<input class="form-check-input" type="checkbox" name="checkbox" id="specialCharacters" value="Option1"  checked>
+			<label class="form-check-label" for="specialCharacters">Special Characters</label>
+		</div>
+	</div>
+<!--	<div class="row">-->
+<!--		<div class="form-check">-->
+<!--			<input class="form-check-input" type="checkbox" name="checkbox" id="checkBox2" value="option1" checked>-->
+<!--			<label class="form-check-label" for="checkBox2">-->
+<!--				Numeric Characters-->
+<!--			</label>-->
+<!--		</div>-->
+<!--	</div>-->
+<!--	<div class="row">-->
+<!--		<div class="form-check">-->
+<!--			<input class="form-check-input" type="checkbox" name="checkbox" id="checkBox3" value="option1" checked>-->
+<!--			<label class="form-check-label" for="checkBox3">-->
+<!--				Lowercase Characters-->
+<!--			</label>-->
+<!--		</div>-->
+<!--	</div>-->
+<!--	<div class="row">-->
+<!--		<div class="form-check mb-3">-->
+<!--			<input class="form-check-input" type="checkbox" name="checkbox" id="checkBox4" value="option1" checked>-->
+<!--			<label class="form-check-label" for="checkBox4">-->
+<!--				Upper Case Characters-->
+<!--			</label>-->
+<!--		</div>-->
+<!--	</div>-->
+	<div class="row">
 		<div class="col-lg-12 justify-align-center text-center">
 			<div class="form-group col text-center">
 				<textarea placeholder="Your Secure Password" class="form-control text-center" id="pwd" rows="2"></textarea>
@@ -32,39 +62,33 @@
 	</div>
 	<div class="row">
 		<div class="col-lg-12 col-md-12 col-xs-12 text-center mt-sm-3">
-				<button onclick="gatherInfo()" class="btn btn-dark">Generate Password</button>
+			<button onclick="gatherInfo()" class="btn btn-dark">Generate Password</button>
 		</div>
 		<div class="col-lg-12 col-md-12 col-xs-12 text-center mt-3">
 			<button id="btnCopy" class="btn btn-dark">Copy Password</button>
 		</div>
 	</div>
-		<div class="row">
-			<div class="col-lg-12 col-md-12 col-xs-12 text-center mt-3">
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-xs-12 text-center mt-3">
 			<button onclick="clearPassword();" id="btnClear" class="btn btn-dark" style="width: 150px">Clear</button>
 		</div>
 	</div>
 </div>
 
 <script type="text/javascript">
-
 	function clearPassword() {
 		document.getElementById("pwd").value = "";
 	}
-
 	function passwordGenerator(passwordLength, characters) {
 		var result ='';
 		var pwd = document.getElementById('pwd');
 		const btnCopy = document.getElementById("btnCopy");
-
-
 		for (var i = 0; i < passwordLength; i++){
 			result += characters[Math.floor(Math.random() * characters.length)];
 		}
-
 		if ((result.includes('%')) || (result.includes('#')) || (result.includes('&')) || (result.includes('*')) || (result.includes('{')) || (result.includes('}')) || (result.includes('[')) || (result.includes(']'))
 			|| (result.includes('0')) || (result.includes('1')) || (result.includes('2')) || (result.includes('3')) || (result.includes('4')) || (result.includes('5')) || (result.includes('6')) || (result.includes('7'))
 			|| (result.includes('8')) || (result.includes('9'))){
-
 			pwd.textContent = result;
 			console.log(pwd);
 			btnCopy.onclick = function () {
@@ -77,28 +101,22 @@
 			passwordGenerator(passwordLength,characters);
 		}
 	}
-
 	function gatherInfo(){
-
 		var Characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789%#-*&!{}[]?';
 		var passwordLength = prompt('Enter Password Length');
 		// return prompt(passwordLength);
-
 		if (passwordLength === null) {
 			return;
 		}
 		if (passwordLength >= 8) {
 			// console.log('password length meets criteria. Length is ' + passwordLength + ' characters.');
 			passwordGenerator(passwordLength, Characters);
-
 		}
 		else {
 			alert('Your Password must be at least 8 characters long!')
 			gatherInfo();
 		}
 	}
-
-
 </script>
 
 </body>

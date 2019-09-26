@@ -14,27 +14,51 @@
 
 <body>
 
-<div class="container container-format text-light mt-3 background-image">
+<!--<div class="container container-format text-light mt-3 background-image">-->
+<div class="container container-format mt-3">
 	<div class="row">
-		<div class="col-12 text-center">
+		<div class="col-lg-12 text-center">
 			<h1>Password Generator</h1>
 			<p class="lead">Protect yourself with complex randomly generated passwords</p>
 			<hr class="my-4 bg-light">
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-12 justify-align-center text-center">
+		<div class="form-check">
+			<input class="form-check-input" type="checkbox" name="checkbox" id="specialCharacters" value=''  checked>
+			<label class="form-check-label" for="specialCharacters">Special Characters</label>
+		</div>
+	</div>
+	<div class="row">
+		<div class="form-check">
+			<input class="form-check-input" type="checkbox" name="checkbox" id="numbers" value=''  checked>
+			<label class="form-check-label" for="numbers">Numbers</label>
+		</div>
+	</div>
+	<div class="row">
+		<div class="form-check">
+			<input class="form-check-input" type="checkbox" name="checkbox" id="lowerCase" value=''  checked>
+			<label class="form-check-label" for="numbers">Lower Case</label>
+		</div>
+	</div>
+	<div class="row mb-4">
+		<div class="form-check">
+			<input class="form-check-input" type="checkbox" name="checkbox" id="upperCase" value=''  checked>
+			<label class="form-check-label" for="numbers">Upper Case</label>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12 justify-align-center text-center">
 			<div class="form-group col text-center">
-				<input type="text" id="pwd" >
-<!--				<textarea placeholder="Your Secure Password" class="form-control text-center" id="pwd" rows="2"></textarea>-->
+				<textarea placeholder="Your Secure Password" class="form-control text-center" id="pwd" rows="2"></textarea>
 			</div>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-lg-6 col-md-3 col-xs-12 text-center mt-sm-3">
-			<button onclick="alert(gatherInfo())" class="btn btn-dark">Generate Password</button>
+		<div class="col-lg-12 col-md-12 col-xs-12 text-center mt-sm-3">
+			<button onclick="gatherInfo()" class="btn btn-dark">Generate Password</button>
 		</div>
-		<div class="col-lg-6 col-md-3 col-xs-12 text-center mt-sm-3">
+		<div class="col-lg-12 col-md-12 col-xs-12 text-center mt-3">
 			<button id="btnCopy" class="btn btn-dark">Copy Password</button>
 		</div>
 	</div>
@@ -45,63 +69,308 @@
 	</div>
 </div>
 
+<script type="text/javascript">
 
-	<script type="text/javascript">
+	var specChar = '%#-&![]{}*?';
+	var numbers = '0123456789';
+	var lowerCase = 'abcdefghijklmnopqrstuvwxyz';
+	var upperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-		function clearPassword() {
-			document.getElementById("pwd").value = "";
+	var spec = document.getElementById('specialCharacters');
+	var num = document.getElementById('numbers');
+	var low = document.getElementById('lowerCase');
+	var uppr = document.getElementById('upperCase');
+
+	function clearPassword() {
+		document.getElementById("pwd").value = "";
+	}
+
+	function passwordGenerator(passwordLength, characters) {
+		var result = '';
+		var pwd = document.getElementById('pwd');
+		const btnCopy = document.getElementById("btnCopy");
+		for (var i = 0; i < passwordLength; i++) {
+			result += characters[Math.floor(Math.random() * characters.length)];
 		}
+			for (var i = 0; i < passwordLength; i++) {
+				console.log("result.includes(specChar[i]) " + result.includes(specChar[i]));
+				console.log("result.includes(numbers[i]) " + result.includes(numbers[i]));
+				console.log("result.includes(numbers[i]) " + result.includes(lowerCase[i]));
+				console.log("result.includes(numbers[i]) " + result.includes(upperCase[i]));
 
-		function passwordGenerator(passwordLength, characters) {
-			var result ='';
-			var pwd = document.getElementById('pwd');
-			const btnCopy = document.getElementById("btnCopy");
-
-
-			for (var i = 0; i < passwordLength; i++){
-				result += characters[Math.floor(Math.random() * characters.length)];
-			}
-
-			if ((result.includes('%')) || (result.includes('#')) || (result.includes('&')) || (result.includes('*')) || (result.includes('{')) || (result.includes('}')) || (result.includes('[')) || (result.includes(']'))
-				|| (result.includes('0')) || (result.includes('1')) || (result.includes('2')) || (result.includes('3')) || (result.includes('4')) || (result.includes('5')) || (result.includes('6')) || (result.includes('7'))
-				|| (result.includes('8')) || (result.includes('9'))){
-
-				pwd.textContent = result;
-				console.log(pwd);
-				btnCopy.onclick = function () {
+				if ((spec.checked) && result.includes(specChar[i]) === true) {
+					console.log('results are ' + result);
 					pwd.textContent = result;
-					pwd.select();
-					document.execCommand("Copy");
+					console.log(pwd);
+					btnCopy.onclick = function () {
+						pwd.textContent = result;
+						pwd.select();
+						document.execCommand("Copy");
+					}
+				}
+
+				if ((num.checked) && result.includes(numbers[i]) === true) {
+					console.log('results are ' + result);
+					pwd.textContent = result;
+					console.log(pwd);
+					btnCopy.onclick = function () {
+						pwd.textContent = result;
+						pwd.select();
+						document.execCommand("Copy");
+					}
+				}
+
+				if ((low.checked) && result.includes(lowerCase[i]) === true) {
+					console.log('results are ' + result);
+					pwd.textContent = result;
+					console.log(pwd);
+					btnCopy.onclick = function () {
+						pwd.textContent = result;
+						pwd.select();
+						document.execCommand("Copy");
+					}
+				}
+
+				if ((uppr.checked) && result.includes(upperCase[i]) === true) {
+					console.log('results are ' + result);
+					pwd.textContent = result;
+					console.log(pwd);
+					btnCopy.onclick = function () {
+						pwd.textContent = result;
+						pwd.select();
+						document.execCommand("Copy");
+					}
+				}
+
+				if ((spec.checked) && (num.checked) && result.includes(specChar[i]) === true &&
+					result.includes(numbers[i]) === true) {
+					// if (result.indexOf(specChar[i]) >=0 && result.indexOf(numbers[i]) >= 0 ) {
+					console.log('results are ' + result);
+					pwd.textContent = result;
+					console.log(pwd);
+					btnCopy.onclick = function () {
+						pwd.textContent = result;
+						pwd.select();
+						document.execCommand("Copy");
+					}
+				}
+
+				if ((spec.checked) && (low.checked) && result.includes(specChar[i]) === true &&
+					result.includes(lowerCase[i]) === true) {
+					// if (result.indexOf(specChar[i]) >=0 && result.indexOf(numbers[i]) >= 0 ) {
+					console.log('results are ' + result);
+					pwd.textContent = result;
+					console.log(pwd);
+					btnCopy.onclick = function () {
+						pwd.textContent = result;
+						pwd.select();
+						document.execCommand("Copy");
+					}
+				}
+
+				if ((spec.checked) && (uppr.checked) && result.includes(specChar[i]) === true &&
+					result.includes(upperCase[i]) === true) {
+					// if (result.indexOf(specChar[i]) >=0 && result.indexOf(numbers[i]) >= 0 ) {
+					console.log('results are ' + result);
+					pwd.textContent = result;
+					console.log(pwd);
+					btnCopy.onclick = function () {
+						pwd.textContent = result;
+						pwd.select();
+						document.execCommand("Copy");
+					}
+				}
+
+				if ((num.checked) && (low.checked) && result.includes(numbers[i]) === true &&
+					result.includes(lowerCase[i]) === true) {
+					// if (result.indexOf(specChar[i]) >=0 && result.indexOf(numbers[i]) >= 0 ) {
+					console.log('results are ' + result);
+					pwd.textContent = result;
+					console.log(pwd);
+					btnCopy.onclick = function () {
+						pwd.textContent = result;
+						pwd.select();
+						document.execCommand("Copy");
+					}
+				}
+
+				if ((num.checked) && (uppr.checked) && result.includes(numbers[i]) === true &&
+					result.includes(upperCase[i]) === true) {
+					// if (result.indexOf(specChar[i]) >=0 && result.indexOf(numbers[i]) >= 0 ) {
+					console.log('results are ' + result);
+					pwd.textContent = result;
+					console.log(pwd);
+					btnCopy.onclick = function () {
+						pwd.textContent = result;
+						pwd.select();
+						document.execCommand("Copy");
+					}
+				}
+
+				if ((num.checked) && (uppr.checked) && (spec.checked) && (low.checked) && result.includes(numbers[i]) ===
+					true && result.includes(upperCase[i]) === true && result.includes(specChar[i]) === true &&
+					result.includes(lowerCase[i]) === true) {
+					console.log('results are ' + result);
+					pwd.textContent = result;
+					console.log(pwd);
+					btnCopy.onclick = function () {
+						pwd.textContent = result;
+						pwd.select();
+						document.execCommand("Copy");
+					}
+				} else {
+					console.log("specchar is " + result.includes(specChar[i]));
+				}
+				if ((uppr.checked) && (spec.checked) && (low.checked) && result.includes(upperCase[i]) === true &&
+					result.includes(specChar[i]) === true && result.includes(lowerCase[i]) === true) {
+					console.log('results are ' + result);
+					pwd.textContent = result;
+					console.log(pwd);
+					btnCopy.onclick = function () {
+						pwd.textContent = result;
+						pwd.select();
+						document.execCommand("Copy");
+					}
+				} else {
+					console.log("specchar is " + result.includes(specChar[i]));
 				}
 			}
-			else {
-				passwordGenerator(passwordLength,characters);
-			}
+	}
+
+	function gatherInfo(){
+
+		var passwordLength = prompt('Enter Password Length');
+
+		if (passwordLength === null) {
+			return;
+		}
+		if (passwordLength >= 8) {
+			var characters = checkBoxes();
+			// console.log('password length meets criteria. Length is ' + passwordLength + ' characters.');
+			passwordGenerator(passwordLength, characters);
+		}
+		else {
+			alert('Your Password must be at least 8 characters long!')
+			gatherInfo();
+		}
+	}
+
+	function checkBoxes() {
+
+		// Combinations for Special Characters
+
+		if (spec.checked){
+			var characters = specChar;
+
+		}
+		if ((spec.checked) && (low.checked)){
+			var characters = specChar + lowerCase;
+			// console.log(characters);
+		}
+		if ((spec.checked) && (uppr.checked)){
+			var characters = specChar + upperCase;
+			// console.log(characters);
+		}
+		if ((spec.checked) && (num.checked)){
+			var characters = specChar + numbers;
+			// console.log(characters);
+		}
+		if ((spec.checked) && (uppr.checked) && (low.checked)){
+			var characters = specChar + upperCase + lowerCase;
+			// console.log(characters);
+		}
+		if ((spec.checked) && (uppr.checked) && (num.checked) && (low.checked)){
+			var characters = specChar + upperCase + numbers + lowerCase;
+			// console.log(characters);
 		}
 
-
-		function gatherInfo(){
-
-			var Characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789%#-*&!{}[]?';
-			var passwordLength = prompt('Enter Password Length');
-			// return prompt(passwordLength);
-
-			if (passwordLength === null) {
-				return;
-			}
-			if (passwordLength >= 8) {// console.log('password length meets criteria. Length is ' + passwordLength + ' characters.');
-				passwordGenerator(passwordLength, Characters);
-
-			}
-			else {
-				alert('Your Password must be at least 8 characters long!')
-				gatherInfo();
-			}
+		// Combinations for Numeric Characters
+		if (num.checked) {
+			var characters = numbers;
+			// console.log(characters);
+		}
+		if ((num.checked) && (low.checked)){
+			var characters = numbers + lowerCase;
+			// console.log(characters);
+		}
+		if ((num.checked) && (uppr.checked)){
+			var characters = numbers + upperCase;
+			// console.log(characters);
+		}
+		if ((num.checked) && (spec.checked)){
+			var characters = numbers + specChar;
+			// console.log(characters);
+		}
+		if ((num.checked) && (low.checked) && (uppr.checked)){
+			var characters = numbers + lowerCase + upperCase;
+			// console.log(characters);
+		}
+		if ((num.checked) && (low.checked) && (uppr.checked) && (spec.checkbox)){
+			var characters = numbers + lowerCase + upperCase + specChar;
+			// console.log(characters);
 		}
 
+		// Combinations for Lower Case Characters
 
-	</script>
+		if (low.checked) {
+			var characters = lowerCase;
+			// console.log(characters);
+		}
 
+		if ((low.checked) && (uppr.checked)) {
+			var characters = lowerCase + upperCase;
+			// console.log(characters);
+		}
+
+		if ((low.checked) && (num.checked)){
+			var characters = lowerCase + numbers;
+			// console.log(characters);
+		}
+
+		if ((low.checked) && (spec.checked)){
+			var characters = lowerCase + specChar;
+			// console.log(characters);
+		}
+		if ((low.checked) && (uppr.checked) && (num.checked)){
+			var characters = lowerCase + upperCase + numbers;
+			// console.log(characters);
+		}
+		if ((low.checked) && (uppr.checked) && (num.checked) && (spec.checkbox)){
+			var characters = lowerCase + upperCase + numbers + specChar;
+			// console.log(characters);
+		}
+		// Combinations for Upper Case Characters
+
+		if (uppr.checked) {
+			var characters = upperCase;
+			// console.log(characters);
+		}
+		if ((low.checked) && (uppr.checked)){
+			var characters = lowerCase + upperCase;
+			// console.log(characters);
+		}
+		if ((uppr.checked) && (num.checked)){
+			var characters = upperCase + numbers;
+			// console.log(characters);
+		}
+		if ((uppr.checked) && (spec.checked)){
+			var characters = upperCase + specChar;
+			// console.log(characters);
+		}
+		if ((uppr.checked) && (low.checked) && (num.checked)){
+			var characters = upperCase + lowerCase + numbers;
+			// console.log(characters);
+		}
+		if ((uppr.checked) && (low.checked) && (num.checked) && (spec.checkbox)){
+			var characters = lowerCase + upperCase + numbers + specChar;
+			// console.log(characters);
+		}
+
+		return characters;
+
+	}
+
+</script>
 
 </body>
 </html>
