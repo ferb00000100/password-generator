@@ -106,135 +106,132 @@
 						pwd.textContent = result;
 						pwd.select();
 						document.execCommand("Copy");
-					}
-				}
 
-				if ((num.checked) && result.includes(numbers[i]) === true) {
-					console.log('results are ' + result);
-					pwd.textContent = result;
-					console.log(pwd);
-					btnCopy.onclick = function () {
-						pwd.textContent = result;
-						pwd.select();
-						document.execCommand("Copy");
 					}
 				}
+					if ((num.checked) && result.includes(numbers[i]) === true) {
+						console.log('results are ' + result);
+						pwd.textContent = result;
+						console.log(pwd);
+						btnCopy.onclick = function () {
+							pwd.textContent = result;
+							pwd.select();
+							document.execCommand("Copy");
+						}
+					}
+						if ((low.checked) && result.includes(lowerCase[i]) === true) {
+							console.log('results are ' + result);
+							pwd.textContent = result;
+							console.log(pwd);
+							btnCopy.onclick = function () {
+								pwd.textContent = result;
+								pwd.select();
+								document.execCommand("Copy");
+							}
+						}
+							if ((uppr.checked) && result.includes(upperCase[i]) === true) {
+								console.log('results are ' + result);
+								pwd.textContent = result;
+								console.log(pwd);
+								btnCopy.onclick = function () {
+									pwd.textContent = result;
+										pwd.select();
+									document.execCommand("Copy");
+								}
+							}
 
-				if ((low.checked) && result.includes(lowerCase[i]) === true) {
-					console.log('results are ' + result);
-					pwd.textContent = result;
-					console.log(pwd);
-					btnCopy.onclick = function () {
-						pwd.textContent = result;
-						pwd.select();
-						document.execCommand("Copy");
-					}
-				}
-
-				if ((uppr.checked) && result.includes(upperCase[i]) === true) {
-					console.log('results are ' + result);
-					pwd.textContent = result;
-					console.log(pwd);
-					btnCopy.onclick = function () {
-						pwd.textContent = result;
-						pwd.select();
-						document.execCommand("Copy");
-					}
-				}
-
-				if ((spec.checked) && (num.checked) && result.includes(specChar[i]) === true &&
-					result.includes(numbers[i]) === true) {
-					// if (result.indexOf(specChar[i]) >=0 && result.indexOf(numbers[i]) >= 0 ) {
-					console.log('results are ' + result);
-					pwd.textContent = result;
-					console.log(pwd);
-					btnCopy.onclick = function () {
-						pwd.textContent = result;
-						pwd.select();
-						document.execCommand("Copy");
-					}
-				}
-
-				if ((spec.checked) && (low.checked) && result.includes(specChar[i]) === true &&
-					result.includes(lowerCase[i]) === true) {
-					// if (result.indexOf(specChar[i]) >=0 && result.indexOf(numbers[i]) >= 0 ) {
-					console.log('results are ' + result);
-					pwd.textContent = result;
-					console.log(pwd);
-					btnCopy.onclick = function () {
-						pwd.textContent = result;
-						pwd.select();
-						document.execCommand("Copy");
-					}
-				}
-
-				if ((spec.checked) && (uppr.checked) && result.includes(specChar[i]) === true &&
-					result.includes(upperCase[i]) === true) {
-					// if (result.indexOf(specChar[i]) >=0 && result.indexOf(numbers[i]) >= 0 ) {
-					console.log('results are ' + result);
-					pwd.textContent = result;
-					console.log(pwd);
-					btnCopy.onclick = function () {
-						pwd.textContent = result;
-						pwd.select();
-						document.execCommand("Copy");
-					}
-				}
-
-				if ((num.checked) && (low.checked) && result.includes(numbers[i]) === true &&
-					result.includes(lowerCase[i]) === true) {
-					// if (result.indexOf(specChar[i]) >=0 && result.indexOf(numbers[i]) >= 0 ) {
-					console.log('results are ' + result);
-					pwd.textContent = result;
-					console.log(pwd);
-					btnCopy.onclick = function () {
-						pwd.textContent = result;
-						pwd.select();
-						document.execCommand("Copy");
-					}
-				}
-
-				if ((num.checked) && (uppr.checked) && result.includes(numbers[i]) === true &&
-					result.includes(upperCase[i]) === true) {
-					// if (result.indexOf(specChar[i]) >=0 && result.indexOf(numbers[i]) >= 0 ) {
-					console.log('results are ' + result);
-					pwd.textContent = result;
-					console.log(pwd);
-					btnCopy.onclick = function () {
-						pwd.textContent = result;
-						pwd.select();
-						document.execCommand("Copy");
-					}
-				}
-
-				if ((num.checked) && (uppr.checked) && (spec.checked) && (low.checked) && result.includes(numbers[i]) ===
-					true && result.includes(upperCase[i]) === true && result.includes(specChar[i]) === true &&
-					result.includes(lowerCase[i]) === true) {
-					console.log('results are ' + result);
-					pwd.textContent = result;
-					console.log(pwd);
-					btnCopy.onclick = function () {
-						pwd.textContent = result;
-						pwd.select();
-						document.execCommand("Copy");
-					}
-				} else {
-					console.log("specchar is " + result.includes(specChar[i]));
-				}
-				if ((uppr.checked) && (spec.checked) && (low.checked) && result.includes(upperCase[i]) === true &&
-					result.includes(specChar[i]) === true && result.includes(lowerCase[i]) === true) {
-					console.log('results are ' + result);
-					pwd.textContent = result;
-					console.log(pwd);
-					btnCopy.onclick = function () {
-						pwd.textContent = result;
-						pwd.select();
-						document.execCommand("Copy");
-					}
-				} else {
-					console.log("specchar is " + result.includes(specChar[i]));
-				}
 			}
+
+
+
+		// if ((spec.checked) && (num.checked) && result.includes(specChar[i]) === true &&
+		// 			result.includes(numbers[i]) === true) {
+		// 			console.log('results are ' + result);
+		// 			pwd.textContent = result;
+		// 			console.log(pwd);
+		// 			btnCopy.onclick = function () {
+		// 				pwd.textContent = result;
+		// 				pwd.select();
+		// 				document.execCommand("Copy");
+		// 			}
+		// 		}
+		//
+		// 		if ((spec.checked) && (low.checked) && result.includes(specChar[i]) === true &&
+		// 			result.includes(lowerCase[i]) === true) {
+		// 			console.log('results are ' + result);
+		// 			pwd.textContent = result;
+		// 			console.log(pwd);
+		// 			btnCopy.onclick = function () {
+		// 				pwd.textContent = result;
+		// 				pwd.select();
+		// 				document.execCommand("Copy");
+		// 			}
+		// 		}
+		//
+		// 		if ((spec.checked) && (uppr.checked) && result.includes(specChar[i]) === true &&
+		// 			result.includes(upperCase[i]) === true) {
+		// 			console.log('results are ' + result);
+		// 			pwd.textContent = result;
+		// 			console.log(pwd);
+		// 			btnCopy.onclick = function () {
+		// 				pwd.textContent = result;
+		// 				pwd.select();
+		// 				document.execCommand("Copy");
+		// 			}
+		// 		}
+		//
+		// 		if ((num.checked) && (low.checked) && result.includes(numbers[i]) === true &&
+		// 			result.includes(lowerCase[i]) === true) {
+		// 			console.log('results are ' + result);
+		// 			pwd.textContent = result;
+		// 			console.log(pwd);
+		// 			btnCopy.onclick = function () {
+		// 				pwd.textContent = result;
+		// 				pwd.select();
+		// 				document.execCommand("Copy");
+		// 			}
+		// 		}
+		//
+		// 		if ((num.checked) && (uppr.checked) && result.includes(numbers[i]) === true &&
+		// 			result.includes(upperCase[i]) === true) {
+		// 			console.log('results are ' + result);
+		// 			pwd.textContent = result;
+		// 			console.log(pwd);
+		// 			btnCopy.onclick = function () {
+		// 				pwd.textContent = result;
+		// 				pwd.select();
+		// 				document.execCommand("Copy");
+		// 			}
+		// 		}
+		//
+		// 		if ((num.checked) && (uppr.checked) && (spec.checked) && (low.checked) && result.includes(numbers[i]) ===
+		// 			true && result.includes(upperCase[i]) === true && result.includes(specChar[i]) === true &&
+		// 			result.includes(lowerCase[i]) === true) {
+		// 			console.log('results are ' + result);
+		// 			pwd.textContent = result;
+		// 			console.log(pwd);
+		// 			btnCopy.onclick = function () {
+		// 				pwd.textContent = result;
+		// 				pwd.select();
+		// 				document.execCommand("Copy");
+		// 			}
+		// 		} else {
+		// 			console.log("specchar is " + result.includes(specChar[i]));
+		// 		}
+		// 		if ((uppr.checked) && (spec.checked) && (low.checked) && result.includes(upperCase[i]) === true &&
+		// 			result.includes(specChar[i]) === true && result.includes(lowerCase[i]) === true) {
+		// 			console.log('results are ' + result);
+		// 			pwd.textContent = result;
+		// 			console.log(pwd);
+		// 			btnCopy.onclick = function () {
+		// 				pwd.textContent = result;
+		// 				pwd.select();
+		// 				document.execCommand("Copy");
+		// 			}
+		// 		} else {
+		// 			console.log("specchar is " + result.includes(specChar[i]));
+		// 		}
+		// 	}
 	}
 
 	function gatherInfo(){
@@ -263,105 +260,105 @@
 			var characters = specChar;
 
 		}
-		if ((spec.checked) && (low.checked)){
+		else if ((spec.checked) && (low.checked)){
 			var characters = specChar + lowerCase;
 			// console.log(characters);
 		}
-		if ((spec.checked) && (uppr.checked)){
+		else if ((spec.checked) && (uppr.checked)){
 			var characters = specChar + upperCase;
 			// console.log(characters);
 		}
-		if ((spec.checked) && (num.checked)){
+		else if ((spec.checked) && (num.checked)){
 			var characters = specChar + numbers;
 			// console.log(characters);
 		}
-		if ((spec.checked) && (uppr.checked) && (low.checked)){
+		else if ((spec.checked) && (uppr.checked) && (low.checked)){
 			var characters = specChar + upperCase + lowerCase;
 			// console.log(characters);
 		}
-		if ((spec.checked) && (uppr.checked) && (num.checked) && (low.checked)){
+		else if ((spec.checked) && (uppr.checked) && (num.checked) && (low.checked)){
 			var characters = specChar + upperCase + numbers + lowerCase;
 			// console.log(characters);
 		}
 
 		// Combinations for Numeric Characters
-		if (num.checked) {
+		else if (num.checked) {
 			var characters = numbers;
 			// console.log(characters);
 		}
-		if ((num.checked) && (low.checked)){
+		else if ((num.checked) && (low.checked)){
 			var characters = numbers + lowerCase;
 			// console.log(characters);
 		}
-		if ((num.checked) && (uppr.checked)){
+		else if ((num.checked) && (uppr.checked)){
 			var characters = numbers + upperCase;
 			// console.log(characters);
 		}
-		if ((num.checked) && (spec.checked)){
+		else if ((num.checked) && (spec.checked)){
 			var characters = numbers + specChar;
 			// console.log(characters);
 		}
-		if ((num.checked) && (low.checked) && (uppr.checked)){
+		else if ((num.checked) && (low.checked) && (uppr.checked)){
 			var characters = numbers + lowerCase + upperCase;
 			// console.log(characters);
 		}
-		if ((num.checked) && (low.checked) && (uppr.checked) && (spec.checkbox)){
+		else if ((num.checked) && (low.checked) && (uppr.checked) && (spec.checkbox)){
 			var characters = numbers + lowerCase + upperCase + specChar;
 			// console.log(characters);
 		}
 
 		// Combinations for Lower Case Characters
 
-		if (low.checked) {
+		else if (low.checked) {
 			var characters = lowerCase;
 			// console.log(characters);
 		}
 
-		if ((low.checked) && (uppr.checked)) {
+		else if ((low.checked) && (uppr.checked)) {
 			var characters = lowerCase + upperCase;
 			// console.log(characters);
 		}
 
-		if ((low.checked) && (num.checked)){
+		else if ((low.checked) && (num.checked)){
 			var characters = lowerCase + numbers;
 			// console.log(characters);
 		}
 
-		if ((low.checked) && (spec.checked)){
+		else if ((low.checked) && (spec.checked)){
 			var characters = lowerCase + specChar;
 			// console.log(characters);
 		}
-		if ((low.checked) && (uppr.checked) && (num.checked)){
+		else if ((low.checked) && (uppr.checked) && (num.checked)){
 			var characters = lowerCase + upperCase + numbers;
 			// console.log(characters);
 		}
-		if ((low.checked) && (uppr.checked) && (num.checked) && (spec.checkbox)){
+		else if ((low.checked) && (uppr.checked) && (num.checked) && (spec.checkbox)){
 			var characters = lowerCase + upperCase + numbers + specChar;
 			// console.log(characters);
 		}
 		// Combinations for Upper Case Characters
 
-		if (uppr.checked) {
+		else if (uppr.checked) {
 			var characters = upperCase;
 			// console.log(characters);
 		}
-		if ((low.checked) && (uppr.checked)){
+		else if ((low.checked) && (uppr.checked)){
 			var characters = lowerCase + upperCase;
 			// console.log(characters);
 		}
-		if ((uppr.checked) && (num.checked)){
+		else if ((uppr.checked) && (num.checked)){
 			var characters = upperCase + numbers;
 			// console.log(characters);
 		}
-		if ((uppr.checked) && (spec.checked)){
+		else if ((uppr.checked) && (spec.checked)){
 			var characters = upperCase + specChar;
 			// console.log(characters);
 		}
-		if ((uppr.checked) && (low.checked) && (num.checked)){
+		else if ((uppr.checked) && (low.checked) && (num.checked)){
 			var characters = upperCase + lowerCase + numbers;
 			// console.log(characters);
 		}
-		if ((uppr.checked) && (low.checked) && (num.checked) && (spec.checkbox)){
+		else if ((uppr.checked) && (low.checked) && (num.checked) && (spec.checkbox)){
 			var characters = lowerCase + upperCase + numbers + specChar;
 			// console.log(characters);
 		}
