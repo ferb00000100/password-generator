@@ -71,6 +71,7 @@
 
 <script type="text/javascript">
 
+	// Create Object of password combinations
 	var choices = {
 		specChar: "%#-&![]{}*?",
 		numbers: "0123456789",
@@ -78,18 +79,20 @@
 		lowerCase: "abcdefghijklmnopqrstuvwxyz"
 	};
 
+	// declare variables
 	var spec = document.getElementById('specialCharacters');
 	var num = document.getElementById('numbers');
 	var low = document.getElementById('lowerCase');
 	var uppr = document.getElementById('upperCase');
 
 
+	// function to clear the password field and reset the page
 	function clearFields() {
 		document.getElementById("pwd").value="";
 		window.location.reload();
 	}
 
-
+	// generate new password
 	function passwordGenerator(singleChar, passwordLength, characters) {
 
 		// Turn the single characters into an array so it can be reversed, to help scramble.
@@ -117,6 +120,7 @@
 			console.log("extra char " + extraChar);
 
 		}
+
 		// debug logs
 		console.log("reversed is " + reversed);
 
@@ -136,14 +140,16 @@
 
 		var passwordLength = prompt('Enter Password Length');
 
+		// If cancel is selected program resets
 		if (passwordLength === null) {
 			return;
 		}
+
+		// Validates user input
 		if ((passwordLength >= 8) && (passwordLength <= 128)) {
 			checkBoxes(passwordLength);
-			// console.log('password length meets criteria. Length is ' + passwordLength + ' characters.');
-			// passwordGenerator(passwordLength, characters);
 		}
+
 		else {
 			alert('Your Password must be between 8 and 128 characters long!')
 			gatherInfo();
@@ -151,6 +157,7 @@
 	}
 
 
+	// display the final password in the textarea and set copy function onclick
 	function displayPassword (result) {
 		pwd.textContent = result;
 		btnCopy.onclick = function () {
@@ -162,6 +169,8 @@
 	}
 
 	function checkBoxes(passwordLength) {
+
+		// declare variables
 		var characters="";
 		var singleChar = '';
 
