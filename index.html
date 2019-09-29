@@ -14,8 +14,7 @@
 
 <body>
 
-<!--<div class="container container-format text-light mt-3 background-image">-->
-<div class="container container-format mt-3">
+<div class="container container-format text-light mt-3 background-image">
 	<div class="row">
 		<div class="col-lg-12 text-center">
 			<h1>Password Generator</h1>
@@ -23,36 +22,30 @@
 			<hr class="my-4 bg-light">
 		</div>
 	</div>
-	<div class="row">
+	<div class="row ml-3">
 		<div class="form-check">
-			<input class="form-check-input" type="checkbox" name="checkbox" id="specialCharacters" value="Option1"  checked>
+			<input class="form-check-input" type="checkbox" name="checkbox" id="specialCharacters" value=''  checked>
 			<label class="form-check-label" for="specialCharacters">Special Characters</label>
 		</div>
 	</div>
-<!--	<div class="row">-->
-<!--		<div class="form-check">-->
-<!--			<input class="form-check-input" type="checkbox" name="checkbox" id="checkBox2" value="option1" checked>-->
-<!--			<label class="form-check-label" for="checkBox2">-->
-<!--				Numeric Characters-->
-<!--			</label>-->
-<!--		</div>-->
-<!--	</div>-->
-<!--	<div class="row">-->
-<!--		<div class="form-check">-->
-<!--			<input class="form-check-input" type="checkbox" name="checkbox" id="checkBox3" value="option1" checked>-->
-<!--			<label class="form-check-label" for="checkBox3">-->
-<!--				Lowercase Characters-->
-<!--			</label>-->
-<!--		</div>-->
-<!--	</div>-->
-<!--	<div class="row">-->
-<!--		<div class="form-check mb-3">-->
-<!--			<input class="form-check-input" type="checkbox" name="checkbox" id="checkBox4" value="option1" checked>-->
-<!--			<label class="form-check-label" for="checkBox4">-->
-<!--				Upper Case Characters-->
-<!--			</label>-->
-<!--		</div>-->
-<!--	</div>-->
+	<div class="row ml-3">
+		<div class="form-check">
+			<input class="form-check-input" type="checkbox" name="checkbox" id="numbers" value=''  checked>
+			<label class="form-check-label" for="numbers">Numbers</label>
+		</div>
+	</div>
+	<div class="row ml-3">
+		<div class="form-check">
+			<input class="form-check-input" type="checkbox" name="checkbox" id="lowerCase" value=''  checked>
+			<label class="form-check-label" for="numbers">Lower Case</label>
+		</div>
+	</div>
+	<div class="row ml-3  mb-4">
+		<div class="form-check">
+			<input class="form-check-input" type="checkbox" name="checkbox" id="upperCase" value=''  checked>
+			<label class="form-check-label" for="numbers">Upper Case</label>
+		</div>
+	</div>
 	<div class="row">
 		<div class="col-lg-12 justify-align-center text-center">
 			<div class="form-group col text-center">
@@ -70,53 +63,140 @@
 	</div>
 	<div class="row">
 		<div class="col-lg-12 col-md-12 col-xs-12 text-center mt-3">
-			<button onclick="clearPassword();" id="btnClear" class="btn btn-dark" style="width: 150px">Clear</button>
+			<button onclick="clearFields();" id="btnClear"
+			        class="btn btn-dark" style="width: 150px">Clear</button>
 		</div>
 	</div>
 </div>
 
 <script type="text/javascript">
-	function clearPassword() {
-		document.getElementById("pwd").value = "";
+
+	var choices = {
+		specChar: "%#-&![]{}*?",
+		numbers: "0123456789",
+		upperCase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+		lowerCase: "abcdefghijklmnopqrstuvwxyz"
+	};
+
+	var spec = document.getElementById('specialCharacters');
+	var num = document.getElementById('numbers');
+	var low = document.getElementById('lowerCase');
+	var uppr = document.getElementById('upperCase');
+
+
+	function clearFields() {
+		document.getElementById("pwd").value="";
+		window.location.reload();
 	}
-	function passwordGenerator(passwordLength, characters) {
-		var result ='';
-		var pwd = document.getElementById('pwd');
-		const btnCopy = document.getElementById("btnCopy");
-		for (var i = 0; i < passwordLength; i++){
-			result += characters[Math.floor(Math.random() * characters.length)];
+
+
+	function passwordGenerator(singleChar, passwordLength, characters) {
+
+		// Turn the single characters into an array so it can be reversed, to help scramble.
+		var singleChar = singleChar.split("");
+		var reversed = singleChar.reverse();
+
+		// Add extra characters to single characters and randomize. Variable "i" will be used for the splice below
+		for (var i = 0; i < passwordLength; i++) {
+			reversed += characters[Math.floor(Math.random() * characters.length)];
 		}
-		if ((result.includes('%')) || (result.includes('#')) || (result.includes('&')) || (result.includes('*')) || (result.includes('{')) || (result.includes('}')) || (result.includes('[')) || (result.includes(']'))
-			|| (result.includes('0')) || (result.includes('1')) || (result.includes('2')) || (result.includes('3')) || (result.includes('4')) || (result.includes('5')) || (result.includes('6')) || (result.includes('7'))
-			|| (result.includes('8')) || (result.includes('9'))){
-			pwd.textContent = result;
-			console.log(pwd);
-			btnCopy.onclick = function () {
-				pwd.textContent = result;
-				pwd.select();
-				document.execCommand("Copy");
-			}
+
+		// take the new password array and remove all the commas and turn in into a string
+		reversed = reversed.toString().replace(/,/g, '');
+
+		// debug logs
+		console.log("reversed random " + reversed);
+		console.log("reversed Length " + reversed.length);
+		console.log("password length " + passwordLength);
+
+		// grab the length of the new password (reversed) find the difference between the new password length and the requested password length
+		if (reversed.length !== passwordLength){
+			var extraChar = reversed.length - passwordLength;
+
+			// debug logs
+			console.log("extra char " + extraChar);
+
 		}
-		else {
-			passwordGenerator(passwordLength,characters);
-		}
+		// debug logs
+		console.log("reversed is " + reversed);
+
+		// Turn the new password (reversed into an array to cut out extra characters to match password length
+		reversed = reversed.split("");
+		reversed.splice(i, extraChar, "");
+		reversed = reversed.toString().replace(/,/g, '');
+
+		// debug logs
+		console.log("after splice "  + reversed);
+
+		displayPassword(reversed);
+
 	}
+
 	function gatherInfo(){
-		var Characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789%#-*&!{}[]?';
+
 		var passwordLength = prompt('Enter Password Length');
-		// return prompt(passwordLength);
+
 		if (passwordLength === null) {
 			return;
 		}
-		if (passwordLength >= 8) {
+		if ((passwordLength >= 8) && (passwordLength <= 128)) {
+			checkBoxes(passwordLength);
 			// console.log('password length meets criteria. Length is ' + passwordLength + ' characters.');
-			passwordGenerator(passwordLength, Characters);
+			// passwordGenerator(passwordLength, characters);
 		}
 		else {
-			alert('Your Password must be at least 8 characters long!')
+			alert('Your Password must be between 8 and 128 characters long!')
 			gatherInfo();
 		}
 	}
+
+
+	function displayPassword (result) {
+		pwd.textContent = result;
+		btnCopy.onclick = function () {
+			pwd.textContent = result;
+			pwd.select();
+			document.execCommand("Copy");
+		}
+
+	}
+
+	function checkBoxes(passwordLength) {
+		var characters="";
+		var singleChar = '';
+
+
+		// if box is checked grab a single character from the object file to ensure that at least one character from the checked boxes is included in the password.
+		//  *** THE RANDOM FUNCTIONS BELOW DON'T DO ANYTHING BUT CURRENTLY EVERYTHING IS WORKING AND I DONT WANT TO BREAK ANYTHING  RIGHT NOW BY CHANGING VARIABLES :)
+
+		if (spec.checked) {
+			characters += choices.specChar;
+			singleChar += choices.specChar[Math.floor(Math.random() * choices.specChar.length)];
+			result = passwordGenerator(singleChar, passwordLength, characters);
+
+		}
+
+		if (num.checked) {
+			characters += choices.numbers;
+			singleChar += choices.numbers[Math.floor(Math.random() * choices.numbers.length)];
+			result = passwordGenerator(singleChar, passwordLength, characters);
+
+		}
+
+		if (low.checked) {
+			characters += choices.lowerCase;
+			singleChar += choices.lowerCase[Math.floor(Math.random() * choices.lowerCase.length)];
+			result = passwordGenerator(singleChar, passwordLength, characters);
+		}
+
+		if (uppr.checked) {
+			characters += choices.upperCase;
+			singleChar += choices.upperCase[Math.floor(Math.random() * choices.upperCase.length)];
+			result = passwordGenerator(singleChar, passwordLength, characters);
+		}
+
+	}
+
 </script>
 
 </body>

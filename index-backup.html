@@ -14,8 +14,7 @@
 
 <body>
 
-<!--<div class="container container-format text-light mt-3 background-image">-->
-<div class="container container-format mt-3">
+<div class="container container-format text-light mt-3 background-image">
 	<div class="row">
 		<div class="col-lg-12 text-center">
 			<h1>Password Generator</h1>
@@ -23,25 +22,25 @@
 			<hr class="my-4 bg-light">
 		</div>
 	</div>
-	<div class="row">
+	<div class="row ml-3">
 		<div class="form-check">
 			<input class="form-check-input" type="checkbox" name="checkbox" id="specialCharacters" value=''  checked>
 			<label class="form-check-label" for="specialCharacters">Special Characters</label>
 		</div>
 	</div>
-	<div class="row">
+	<div class="row ml-3">
 		<div class="form-check">
 			<input class="form-check-input" type="checkbox" name="checkbox" id="numbers" value=''  checked>
 			<label class="form-check-label" for="numbers">Numbers</label>
 		</div>
 	</div>
-	<div class="row">
+	<div class="row ml-3">
 		<div class="form-check">
 			<input class="form-check-input" type="checkbox" name="checkbox" id="lowerCase" value=''  checked>
 			<label class="form-check-label" for="numbers">Lower Case</label>
 		</div>
 	</div>
-	<div class="row mb-4">
+	<div class="row ml-3  mb-4">
 		<div class="form-check">
 			<input class="form-check-input" type="checkbox" name="checkbox" id="upperCase" value=''  checked>
 			<label class="form-check-label" for="numbers">Upper Case</label>
@@ -62,33 +61,21 @@
 			<button id="btnCopy" class="btn btn-dark">Copy Password</button>
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-lg-12 col-md-12 col-xs-12 text-center mt-3">
-			<button onclick="clearPassword();" id="btnClear" class="btn btn-dark" style="width: 150px">Clear</button>
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-xs-12 text-center mt-3">
+				<button onclick="clearFields();" id="btnClear"
+				        class="btn btn-dark" style="width: 150px">Clear</button>
+			</div>
 		</div>
-	</div>
 </div>
 
 <script type="text/javascript">
 
 	var choices = {
-		specChar: "%#-&![]{}*?",
-		numbers: "0123456789",
-		upperCase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-		lowerCase: "abcdefghijklmnopqrstuvwxyz"
-	},
-		combinations = {
-		all: "%#-&![]{}*?0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
-		specNum: "%#-&![]{}*?0123456789",
-		specNumUppr: "%#-&![]{}*?0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-		specNumLower: "%#-&![]{}*?0123456789abcdefghijklmnopqrstuvwxyz",
-		num: "0123456789",
-		numUppr: "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-		numLower: "0123456789abcdefghijklmnopqrstuvwxyz",
-		uppr: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-		upprLower: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
-		upprSpec: "ABCDEFGHIJKLMNOPQRSTUVWXYZ%#-&![]{}*?",
-
+			specChar: "%#-&![]{}*?",
+			numbers: "0123456789",
+			upperCase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+			lowerCase: "abcdefghijklmnopqrstuvwxyz"
 		};
 
 	var spec = document.getElementById('specialCharacters');
@@ -96,17 +83,31 @@
 	var low = document.getElementById('lowerCase');
 	var uppr = document.getElementById('upperCase');
 
-	function clearPassword() {
-		document.getElementById("pwd").value = "";
-	}
 
-	function passwordGenerator(passwordLength, characters) {
-		var result = '';
+	function clearFields() {
+		document.getElementById("pwd").value="";
+		window.location.reload();
+		}
+
+
+	function passwordGenerator(singleChar, passwordLength, characters) {
+		var result = singleChar;
+		result += characters[Math.floor(Math.random() * characters.length)];
+
 		for (var i = 0; i < passwordLength; i++) {
 			result += characters[Math.floor(Math.random() * characters.length)];
 		}
+		result = result.split("");
+		console.log(result);
+		if (result.length !== passwordLength){
+			var extraChar = result.length - passwordLength;
+			console.log(extraChar);
 
-	return result;
+		}
+		result.splice(i, extraChar, "");
+		result = result.toString().replace(/,/g, '');
+		console.log(result);
+		displayPassword(result);
 
 	}
 
@@ -128,23 +129,9 @@
 		}
 	}
 
-	// function validate(resultSplit, inputChar) {
-	// 	for (var i = 0; i < resultSplit.length; i++) {
-	// 		console.log(resultSplit[i]);
-	// 		if (inputChar.indexOf(resultSplit) >= 0 ) {
-	// 			console.log("UUGGGG");
-	// 			console.log(resultSplit[i]);
-	//
-	// 		}
-	// 		else {
-	// 			displayPassword(result);
-	// 		}
-	// 	}
-	// }
 
 	function displayPassword (result) {
 		pwd.textContent = result;
-		console.log(pwd);
 		btnCopy.onclick = function () {
 			pwd.textContent = result;
 			pwd.select();
@@ -152,50 +139,38 @@
 		}
 
 	}
+
 	function checkBoxes(passwordLength) {
+		var characters="";
+		var singleChar = '';
 
-		if ((spec.checked) && (num.checked) && (low.checked) && (uppr.checked)){
-			var characters = combinations.all;
-			result = passwordGenerator(passwordLength, characters);
-			resultSplit = result.split("");
-			// validate(resultSplit, characters);
-			displayPassword(result);
-		}
-
-		else if (spec.checked) {
-			var characters = choices.specChar;
-			result = passwordGenerator(passwordLength, characters);
-			resultSplit = result.split("");
-			// validate(resultSplit, characters);
-			// console.log(result);
-		}
-
-		else if (num.checked) {
-			var characters = choices.numbers;
-			result = passwordGenerator(passwordLength, characters);
-			displayPassword(result);
-		}
-
-		else if (low.checked) {
-			var characters = choices.lowerCase;
-			result = passwordGenerator(passwordLength, characters);
-			displayPassword(result);
+		if (spec.checked) {
+			characters+=choices.specChar;
+			singleChar+=choices.specChar[Math.floor(Math.random() * choices.specChar.length)];
+			result = passwordGenerator(singleChar, passwordLength, characters);
 
 		}
-		else if (uppr.checked) {
-			var characters = choices.upperCase;
-			result = passwordGenerator(passwordLength, characters);
-			displayPassword(result);
+
+		if (num.checked) {
+			characters+=choices.numbers;
+			singleChar+=choices.numbers[Math.floor(Math.random() * choices.numbers.length)];
+			result = passwordGenerator(singleChar, passwordLength, characters);
 
 		}
-		else if ((spec.checked) && (num.checked)) {
-			var characters = combinations.specNum;
-			result = passwordGenerator(passwordLength, characters);
-			displayPassword(result);
+
+		if (low.checked) {
+			characters += choices.lowerCase;
+			singleChar += choices.lowerCase[Math.floor(Math.random() * choices.lowerCase.length)];
+			result = passwordGenerator(singleChar, passwordLength, characters);
+		}
+
+		if (uppr.checked) {
+			characters += choices.upperCase;
+			singleChar += choices.upperCase[Math.floor(Math.random() * choices.upperCase.length)];
+			result = passwordGenerator(singleChar, passwordLength, characters);
 		}
 
 	}
-
 
 </script>
 

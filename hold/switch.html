@@ -4,12 +4,12 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>Password Generator</title>
-	<link rel="stylesheet" href="assets/css/cssreset.css" type="text/css">
+	<link rel="stylesheet" href="../assets/css/cssreset.css" type="text/css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-	<link rel="stylesheet" href="assets/css/style.css" type="text/css">
+	<link rel="stylesheet" href="../assets/css/style.css" type="text/css">
 </head>
 
 <body>
@@ -69,70 +69,123 @@
 	</div>
 </div>
 
-
 <script type="text/javascript">
 
 	var choices = {
-		"specChar":"%#-&![]{}*?",
-		"numbers": "0123456789",
-		"upperCase": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-		"lowerCase": "abcdefghijklmnopqrstuvwxyz"
-	};
+			specChar: "%#-&![]{}*?",
+			numbers: "0123456789",
+			upperCase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+			lowerCase: "abcdefghijklmnopqrstuvwxyz"
+		},
+		combinations = {
+			all: "%#-&![]{}*?0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+			specNum: "%#-&![]{}*?0123456789",
+			specNumUppr: "%#-&![]{}*?0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+			specNumLower: "%#-&![]{}*?0123456789abcdefghijklmnopqrstuvwxyz",
+			num: "0123456789",
+			numUppr: "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+			numLower: "0123456789abcdefghijklmnopqrstuvwxyz",
+			uppr: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+			upprLower: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+			upprSpec: "ABCDEFGHIJKLMNOPQRSTUVWXYZ%#-&![]{}*?",
 
-	var specCkb = document.getElementById('specialCharacters');
-	var numCkb = document.getElementById('numbers');
-	var lowCkb = document.getElementById('lowerCase');
-	var upprCkb = document.getElementById('upperCase');
+		};
 
-		function passwordGenerator(passwordLength, characters) {
-			console.log(passwordLength);
-			var result = '';
-			var pwd = document.getElementById('pwd');
-			const btnCopy = document.getElementById("btnCopy");
-			for (var i = 0; i < passwordLength; i++) {
-				result += characters[Math.floor(Math.random() * characters.length)];
-			}
-			if (spec.checked) {
-				console.log('results are ' + result);
-				pwd.textContent = result;
-				console.log(pwd);
-				btnCopy.onclick = function () {
-					pwd.textContent = result;
-					pwd.select();
-					document.execCommand("Copy");
+	var spec = document.getElementById('specialCharacters');
+	var num = document.getElementById('numbers');
+	var low = document.getElementById('lowerCase');
+	var uppr = document.getElementById('upperCase');
 
-				}
-			}
+	function clearPassword() {
+		document.getElementById("pwd").value = "";
+	}
+
+	function passwordGenerator(passwordLength, characters) {
+		var result = '';
+		for (var i = 0; i < passwordLength; i++) {
+			result += characters[Math.floor(Math.random() * characters.length)];
 		}
 
-		function gatherInfo(){
+		return result;
 
-			var passwordLength = prompt('Enter Password Length');
+	}
 
-			if (passwordLength === null) {
-				return;
-			}
-			if (passwordLength >= 8) {
-				var characters = checkBoxes();
-				// console.log('password length meets criteria. Length is ' + passwordLength + ' characters.');
-				passwordGenerator(passwordLength, characters);
-			}
-			else {
-				alert('Your Password must be at least 8 characters long!')
-				gatherInfo();
-			}
+	function gatherInfo(){
+
+		var passwordLength = prompt('Enter Password Length');
+
+		if (passwordLength === null) {
+			return;
+		}
+		if ((passwordLength >= 8) && (passwordLength <= 128)) {
+			checkBoxes(passwordLength);
+		}
+		else {
+			alert('Your Password must be between 8 and 128 characters long!')
+			gatherInfo();
+		}
+	}
+
+
+	function displayPassword (result) {
+		pwd.textContent = result;
+		console.log(pwd);
+		btnCopy.onclick = function () {
+			pwd.textContent = result;
+			pwd.select();
+			document.execCommand("Copy");
 		}
 
+	}
 
-		function checkBoxes() {
-			if (specCkb.checked){
-				var characters = choices.specChar;
-				characters.split(" ");
-				console.log(characters);
+	switch (checked) {
+		case spec.checked:
+	}
 
-			}
-		return characters;
+	function checkBoxes(passwordLength) {
+
+		if ((spec.checked) && (num.checked) && (low.checked) && (uppr.checked)){
+			var characters = combinations.all;
+			result = passwordGenerator(passwordLength, characters);
+			resultSplit = result.split("");
+			// validate(resultSplit, characters);
+			displayPassword(result);
 		}
+
+		else if (spec.checked) {
+			var characters = choices.specChar;
+			result = passwordGenerator(passwordLength, characters);
+			resultSplit = result.split("");
+			// validate(resultSplit, characters);
+			// console.log(result);
+		}
+
+		else if (num.checked) {
+			var characters = choices.numbers;
+			result = passwordGenerator(passwordLength, characters);
+			displayPassword(result);
+		}
+
+		else if (low.checked) {
+			var characters = choices.lowerCase;
+			result = passwordGenerator(passwordLength, characters);
+			displayPassword(result);
+
+		}
+		else if (uppr.checked) {
+			var characters = choices.upperCase;
+			result = passwordGenerator(passwordLength, characters);
+			displayPassword(result);
+
+		}
+		else if ((spec.checked) && (num.checked)) {
+			var characters = combinations.specNum;
+			result = passwordGenerator(passwordLength, characters);
+			displayPassword(result);
+		}
+
+	}
+
 
 </script>
 
