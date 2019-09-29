@@ -124,7 +124,7 @@
 		// debug logs
 		console.log("reversed is " + reversed);
 
-		// Turn the new password (reversed into an array to cut out extra characters to match password length
+		// Turn the new password (reversed) into an array to cut out extra characters to match password length. Then turn it back into a string and remove commas.
 		reversed = reversed.split("");
 		reversed.splice(i, extraChar, "");
 		reversed = reversed.toString().replace(/,/g, '');
